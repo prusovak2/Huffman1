@@ -7,6 +7,8 @@ namespace Huffman1
 {
     class Program
     {
+        //https://github.com/prusovak2/Huffman1 some unit test available
+
         static void Main(string[] args)
         {
             //try to open file by binary reader
@@ -28,7 +30,7 @@ namespace Huffman1
             Console.SetOut(Writer);
 
             //print Huffman tree
-            TreePrinter.PrintCompresedTree(Root, true, Writer);
+            TreePrinter.PrintCompresedTree(Root, Writer);
         }
 
         private static bool OpenFile(string[] args, out BinaryReader Reader)

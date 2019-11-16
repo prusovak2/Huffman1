@@ -52,7 +52,7 @@ namespace Huffman1
         /// <param name="Root"></param>
         /// <param name="FirstRecord">when function is called true shoud be passed</param>
         /// <param name="Writer"></param>
-        public static void PrintCompresedTree(Node Root, bool FirstRecord, StreamWriter Writer)
+        private static void PrintCompresedTree(Node Root, bool FirstRecord, StreamWriter Writer)
         {
             if (Root is Leaf)
             {
@@ -68,7 +68,7 @@ namespace Huffman1
                     Writer.Write(" ");
                 }
                 Writer.Write($"*{l.Symbol}:{l.Weight}");
-                Writer.Flush();
+               // Writer.Flush();
                 return;
             }
             InnerNode node = (InnerNode)Root;
@@ -84,11 +84,16 @@ namespace Huffman1
             //prefix notation
             //first print node
             Writer.Write($"{node.Weight}");
-            Writer.Flush();
+           // Writer.Flush();
             //then recursively print its left subtree
             PrintCompresedTree(node.Left, false, Writer);
             //then recursively print its right subtree
             PrintCompresedTree(node.Right, false, Writer);
+        }
+        public static void PrintCompresedTree(Node Root, StreamWriter writer)
+        {
+            PrintCompresedTree(Root, true, writer);
+            writer.Flush();
         }
     }
 }

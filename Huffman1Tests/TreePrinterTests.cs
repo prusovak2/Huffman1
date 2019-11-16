@@ -58,7 +58,7 @@ namespace Huffman1Tests
 
             Node Root = builder.BuildHuffTree();
             StreamWriter sw = new StreamWriter(@"TestFiles\myCompresTree.txt");
-            TreePrinter.PrintCompresedTree(Root, true,sw);
+            TreePrinter.PrintCompresedTree(Root,sw);
             //sw.Flush();
         }
     }
