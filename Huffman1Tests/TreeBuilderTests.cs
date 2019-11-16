@@ -12,7 +12,7 @@ namespace Huffman1Tests
         [TestMethod]
         public void ComparerTest()
         {
-            Dictionary<byte, int> Test = new Dictionary<byte, int>();
+            long[] Test = new long[256];
             Test[97] = 6;
             Test[98] = 2;
             Test[32] = 5;

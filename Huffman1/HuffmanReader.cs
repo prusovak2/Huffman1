@@ -14,7 +14,7 @@ namespace Huffman1
         /// <summary>
         /// Dictionary storing numbers of occurences of bytes in input file
         /// </summary>
-        internal Dictionary<byte, int> SymbolsWithWeights;
+        internal long[] SymbolsWithWeights;
         /// <summary>
         /// reader, reading input file
         /// </summary>
@@ -22,8 +22,30 @@ namespace Huffman1
 
         public HuffmanReader(BinaryReader reader)
         {
-            this.SymbolsWithWeights = new Dictionary<byte, int>();
+            this.SymbolsWithWeights = new long[256];
+            for (int i = 0; i < this.SymbolsWithWeights.Length; i++)
+            {
+                this.SymbolsWithWeights[i] = 0;
+            }
             this.Reader = reader;
+        }
+        
+        public bool ReadFileUsingBuffer()
+        {
+            int size = 4096;
+            byte[] buffer;
+            bool empty = true;
+            do
+            {
+                buffer = Reader.ReadBytes(size);
+                foreach (var item in buffer)
+                {
+                    this.SymbolsWithWeights[item]++;
+                    empty = false;
+                }
+            } while (buffer.Length == size);
+
+            return !empty;
         }
         /// <summary>
         /// reads binary input file and counts occurences of its bytes
@@ -46,15 +68,7 @@ namespace Huffman1
                     break;
                 }
 
-                //read was succesful, add read value to dictionary
-                if (this.SymbolsWithWeights.ContainsKey(SymbolRead))
-                {
-                    this.SymbolsWithWeights[SymbolRead]++;
-                }
-                else
-                {
-                    this.SymbolsWithWeights[SymbolRead] = 1;
-                }
+                this.SymbolsWithWeights[SymbolRead]++;
                 
              }
             return !empty;
@@ -64,7 +78,7 @@ namespace Huffman1
         /// provides the access to SymbolsAndWeights dictionary
         /// </summary>
         /// <returns></returns>
-        public Dictionary<byte, int> ProvideSymbolsWihtWeights()
+        public long[] ProvideSymbolsWihtWeights()
         {
             return this.SymbolsWithWeights;
         }

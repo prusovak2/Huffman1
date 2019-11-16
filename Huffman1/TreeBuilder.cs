@@ -20,13 +20,17 @@ namespace Huffman1
         /// creates leaves of Huffman from dictionary of bytes and occurences 
         /// </summary>
         /// <param name="SymbolsAndWeights">Dictionary provided by HuffmanReader class</param>
-        public TreeBuilder(Dictionary<byte, int> SymbolsAndWeights)
+        public TreeBuilder(long[] SymbolsAndWeights)
         {
             SortedSet<Node> forest = new SortedSet<Node>(new Comparer());
-            foreach (var item in SymbolsAndWeights)
+            for (int i = 0; i < 256; i++)
             {
-                Leaf leaf = new Leaf(item.Key, item.Value);
-                forest.Add(leaf);
+                if (SymbolsAndWeights[i] > 0)
+                {
+                    Leaf leaf = new Leaf((byte)i, SymbolsAndWeights[i]);
+                    forest.Add(leaf);
+                }
+                
             }
             this.Forest = forest;
         } 

@@ -11,7 +11,7 @@ namespace Huffman1Tests
         [TestMethod]
         public void PrintNiceTreeTest()
         {
-            Dictionary<byte, int> Test = new Dictionary<byte, int>();
+            long[] Test = new long[256];
             Test[97] = 6;
             Test[98] = 2;
             Test[32] = 5;
@@ -28,11 +28,11 @@ namespace Huffman1Tests
         [TestMethod]
         public void PrintNiceTreeLeafTest()
         {
-            Dictionary<byte, int> Test = new Dictionary<byte, int>();
-           /* Test[97] = 6;
-            Test[98] = 2;
-            Test[32] = 5;
-            Test[99] = 5; */
+            long[] Test = new long[256];
+            /* Test[97] = 6;
+             Test[98] = 2;
+             Test[32] = 5;
+             Test[99] = 5; */
             Test[100] = 1;
            /* Test[101] = 2;
             Test[102] = 2;
@@ -45,7 +45,7 @@ namespace Huffman1Tests
         [TestMethod]
         public void PrintCompresedTreeTest()
         {
-            Dictionary<byte, int> Test = new Dictionary<byte, int>();
+            long[] Test = new long[256];
             Test[97] = 6;
             Test[98] = 2;
             Test[32] = 5;

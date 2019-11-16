@@ -9,7 +9,7 @@ namespace Huffman1
     /// </summary>
     public abstract class Node
     {      
-        public abstract int Weight { get; set; }
+        public abstract long Weight { get; set; }
         //public abstract int TimeOfCreation { get; set; }
                   
     }
@@ -18,10 +18,10 @@ namespace Huffman1
     /// </summary>
     public class Leaf : Node
     {
-        public override int Weight { get; set; }
+        public override long Weight { get; set; }
         public byte Symbol { get; set; }
 
-        public Leaf(byte Symbol, int Weight)
+        public Leaf(byte Symbol, long Weight)
         {
             this.Symbol = Symbol;
             this.Weight = Weight;
@@ -32,12 +32,12 @@ namespace Huffman1
     /// </summary>
     public class InnerNode : Node
     {
-        public override int Weight { get; set; }
+        public override long Weight { get; set; }
         internal int TimeOfCreation { get; set; }
        internal Node Left { get; set; }
         internal Node Right { get; set; }
 
-        public InnerNode(int weight, int timeOfCreation)
+        public InnerNode(long weight, int timeOfCreation)
         {
             this.Weight = weight;
             this.TimeOfCreation = timeOfCreation;
@@ -53,7 +53,7 @@ namespace Huffman1
             this.Left = left;
             this.Right = right;
             this.TimeOfCreation = timeOfCreation;
-            int weight = (left.Weight + right.Weight);
+            long weight = (left.Weight + right.Weight);
             this.Weight = weight;
         }
 

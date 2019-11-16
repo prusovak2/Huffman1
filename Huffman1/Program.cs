@@ -19,7 +19,7 @@ namespace Huffman1
             }
             //create HuffmanReader, that is going to count occurences of bytes in input file
             HuffmanReader HuffReader = new HuffmanReader(Reader);
-            bool NotEmpty = HuffReader.ReadFile();
+            bool NotEmpty = HuffReader.ReadFileUsingBuffer();
             //Build Huffman tree
             TreeBuilder Builder = new TreeBuilder(HuffReader.ProvideSymbolsWihtWeights());
             Node Root = Builder.BuildHuffTree();
