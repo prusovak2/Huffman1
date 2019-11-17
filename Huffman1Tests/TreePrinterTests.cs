@@ -11,7 +11,7 @@ namespace Huffman1Tests
         [TestMethod]
         public void PrintNiceTreeTest()
         {
-            long[] Test = new long[256];
+            ulong[] Test = new ulong[256];
             Test[97] = 6;
             Test[98] = 2;
             Test[32] = 5;
@@ -28,7 +28,7 @@ namespace Huffman1Tests
         [TestMethod]
         public void PrintNiceTreeLeafTest()
         {
-            long[] Test = new long[256];
+            ulong[] Test = new ulong[256];
             /* Test[97] = 6;
              Test[98] = 2;
              Test[32] = 5;
@@ -45,7 +45,7 @@ namespace Huffman1Tests
         [TestMethod]
         public void PrintCompresedTreeTest()
         {
-            long[] Test = new long[256];
+            ulong[] Test = new ulong[256];
             Test[97] = 6;
             Test[98] = 2;
             Test[32] = 5;
@@ -60,6 +60,27 @@ namespace Huffman1Tests
             StreamWriter sw = new StreamWriter(@"TestFiles\myCompresTree.txt");
             TreePrinter.PrintCompresedTree(Root,sw);
             //sw.Flush();
+        }
+        [TestMethod]
+        public void PrintTreeBinaryTest()
+        {
+            Stream s = File.OpenWrite(@"D:\MFF\ZS_2019\c#_repos\Huffman1\Huffman1Tests\bin\Debug\netcoreapp3.0\TestFiles\Huff2\Outs\PrintTreeBin.out");
+            BinaryWriter writer = new BinaryWriter(s);
+
+            Stream ins = File.OpenRead(@"D:\MFF\ZS_2019\c#_repos\Huffman1\Huffman1Tests\bin\Debug\netcoreapp3.0\TestFiles\Huff2\Ins\simple4.in");
+            BinaryReader reader = new BinaryReader(ins);
+            HuffmanReader HuffReader = new HuffmanReader(reader);
+            bool NotEmpty = HuffReader.ReadFileUsingBuffer();
+            //Build Huffman tree
+            TreeBuilder Builder = new TreeBuilder(HuffReader.ProvideSymbolsWihtWeights());
+            Node Root = Builder.BuildHuffTree();
+
+            TreePrinter.PrintTreeBinary(Root, writer);
+            writer.Flush();
+            writer.Close();
+            reader.Close();
+            bool same = Utils.FileDiff(@"D:\MFF\ZS_2019\c#_repos\Huffman1\Huffman1Tests\bin\Debug\netcoreapp3.0\TestFiles\Huff2\Ins\Tree.in", @"D:\MFF\ZS_2019\c#_repos\Huffman1\Huffman1Tests\bin\Debug\netcoreapp3.0\TestFiles\Huff2\Outs\PrintTreeBin.out");
+            Assert.IsTrue(same);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Huffman1Tests
                 }
 
             }
-            Dictionary<byte, int> Test = new Dictionary<byte, int>();
+            Dictionary<byte, ulong> Test = new Dictionary<byte, ulong>();
             Test[97] = 6;
             Test[98] = 5;
             Test[32] = 5;
@@ -73,7 +73,7 @@ namespace Huffman1Tests
                 }
 
             }
-            Dictionary<byte, int> Test = new Dictionary<byte, int>();
+            Dictionary<byte, ulong> Test = new Dictionary<byte, ulong>();
             Test[97] = 6;
             Test[98] = 5;
             Test[32] = 5;

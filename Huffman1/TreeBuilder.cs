@@ -20,7 +20,7 @@ namespace Huffman1
         /// creates leaves of Huffman from dictionary of bytes and occurences 
         /// </summary>
         /// <param name="SymbolsAndWeights">Dictionary provided by HuffmanReader class</param>
-        public TreeBuilder(long[] SymbolsAndWeights)
+        public TreeBuilder(ulong[] SymbolsAndWeights)
         {
             SortedSet<Node> forest = new SortedSet<Node>(new Comparer());
             for (int i = 0; i < 256; i++)

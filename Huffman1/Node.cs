@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace Huffman1
 {
@@ -9,8 +10,9 @@ namespace Huffman1
     /// </summary>
     public abstract class Node
     {      
-        public abstract long Weight { get; set; }
+        public abstract ulong Weight { get; set; }
         //public abstract int TimeOfCreation { get; set; }
+        public abstract ulong NodeToBinary();
                   
     }
     /// <summary>
@@ -18,13 +20,54 @@ namespace Huffman1
     /// </summary>
     public class Leaf : Node
     {
-        public override long Weight { get; set; }
+        public override ulong Weight { get; set; }
         public byte Symbol { get; set; }
 
-        public Leaf(byte Symbol, long Weight)
+        public Leaf(byte Symbol, ulong Weight)
         {
             this.Symbol = Symbol;
             this.Weight = Weight;
+        }
+
+        public override ulong NodeToBinary()
+        {
+            ulong weight = this.Weight;
+            weight <<= 9; //pick lower 55 bits of weight - 9 zeroes to end
+            weight >>= 8; //one zero to begining
+
+            ulong symbol = this.Symbol;
+            symbol <<= 56;
+
+            ulong initialOne = 1;
+
+            ulong binRepresentation = weight | symbol | initialOne;
+
+            return binRepresentation;
+        }
+        public ulong NodeToBinaryMock(BinaryWriter writer)
+        {
+            ulong weight = this.Weight;
+            writer.Write(weight);
+
+            weight <<= 9; //pick lower 55 bits of weight - 9 zeroes to end
+            weight >>= 8; //one zero to begining
+
+            writer.Write(weight);
+
+            ulong symbol = this.Symbol;
+            symbol <<= 56;
+
+            writer.Write(symbol);
+
+            ulong initialOne = 1;
+
+            writer.Write(initialOne);
+
+            ulong binRepresentation = weight | symbol | initialOne;
+
+            writer.Write(binRepresentation);
+
+            return binRepresentation;
         }
     }
     /// <summary>
@@ -32,12 +75,12 @@ namespace Huffman1
     /// </summary>
     public class InnerNode : Node
     {
-        public override long Weight { get; set; }
+        public override ulong Weight { get; set; }
         internal int TimeOfCreation { get; set; }
        internal Node Left { get; set; }
         internal Node Right { get; set; }
 
-        public InnerNode(long weight, int timeOfCreation)
+        public InnerNode(ulong weight, int timeOfCreation)
         {
             this.Weight = weight;
             this.TimeOfCreation = timeOfCreation;
@@ -53,8 +96,17 @@ namespace Huffman1
             this.Left = left;
             this.Right = right;
             this.TimeOfCreation = timeOfCreation;
-            long weight = (left.Weight + right.Weight);
+            ulong weight = (left.Weight + right.Weight);
             this.Weight = weight;
+        }
+        public override ulong NodeToBinary()
+        {
+            //TODO: Am I sure its correct?
+            ulong weight = this.Weight;
+            weight <<= 9; //pick lower 55 bits of weight - 9 zeroes to end
+            weight >>= 8; //one zero to begining
+            //writer.Write(weight);
+            return weight;
         }
 
     }

@@ -90,6 +90,18 @@ namespace Huffman1
             //then recursively print its right subtree
             PrintCompresedTree(node.Right, false, Writer);
         }
+        public static void PrintTreeBinary(Node root, BinaryWriter writer)
+        {
+            ulong record =root.NodeToBinary();
+            writer.Write(record);
+            if(root is InnerNode)
+            {
+                InnerNode node = (InnerNode)root;
+                PrintTreeBinary(node.Left, writer);
+                PrintTreeBinary(node.Right, writer);
+            }
+        }
+
         public static void PrintCompresedTree(Node Root, StreamWriter writer)
         {
             PrintCompresedTree(Root, true, writer);

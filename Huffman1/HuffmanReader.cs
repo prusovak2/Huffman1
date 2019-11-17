@@ -14,7 +14,7 @@ namespace Huffman1
         /// <summary>
         /// Dictionary storing numbers of occurences of bytes in input file
         /// </summary>
-        internal long[] SymbolsWithWeights;
+        internal ulong[] SymbolsWithWeights;
         /// <summary>
         /// reader, reading input file
         /// </summary>
@@ -22,7 +22,7 @@ namespace Huffman1
 
         public HuffmanReader(BinaryReader reader)
         {
-            this.SymbolsWithWeights = new long[256];
+            this.SymbolsWithWeights = new ulong[256];
             for (int i = 0; i < this.SymbolsWithWeights.Length; i++)
             {
                 this.SymbolsWithWeights[i] = 0;
@@ -78,7 +78,7 @@ namespace Huffman1
         /// provides the access to SymbolsAndWeights dictionary
         /// </summary>
         /// <returns></returns>
-        public long[] ProvideSymbolsWihtWeights()
+        public ulong[] ProvideSymbolsWihtWeights()
         {
             return this.SymbolsWithWeights;
         }

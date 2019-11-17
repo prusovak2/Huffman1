@@ -12,7 +12,7 @@ namespace Huffman1Tests
         [TestMethod]
         public void ComparerTest()
         {
-            long[] Test = new long[256];
+            ulong[] Test = new ulong[256];
             Test[97] = 6;
             Test[98] = 2;
             Test[32] = 5;
@@ -24,7 +24,7 @@ namespace Huffman1Tests
             TreeBuilder builder = new TreeBuilder(Test);
             for (int i = 0; i < 5; i++)
             {
-                InnerNode n = new InnerNode(i, i);
+                InnerNode n = new InnerNode((ulong)i, i);
                 builder.Forest.Add(n);
             }
             while (builder.Forest.Count > 0)
