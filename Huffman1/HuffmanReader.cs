@@ -22,6 +22,7 @@ namespace Huffman1
 
         public HuffmanReader(BinaryReader reader)
         {
+            //initialize array with zeroes, enable addition to whichever member of array, important for counting occurences of bytes
             this.SymbolsWithWeights = new ulong[256];
             for (int i = 0; i < this.SymbolsWithWeights.Length; i++)
             {
@@ -30,6 +31,11 @@ namespace Huffman1
             this.Reader = reader;
         }
         
+        /// <summary>
+        /// reads input file using binary reader and buffer of size 4096 bytes
+        /// counts occurences of its bytes
+        /// </summary>
+        /// <returns></returns>
         public bool ReadFileUsingBuffer()
         {
             int size = 4096;

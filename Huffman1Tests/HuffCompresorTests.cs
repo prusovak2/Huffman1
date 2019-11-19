@@ -154,6 +154,23 @@ namespace Huffman1Tests
             HuffCompresor.CompressContent(Root, writer, reader);
 
         }
+
+        [TestMethod]
+        public void CompressFileTest()
+        {
+            Stream s = File.OpenWrite(@"D:\MFF\ZS_2019\c#_repos\Huffman1\Huffman1Tests\bin\Debug\netcoreapp3.0\TestFiles\Huff2\Outs\simple4Comp.out");
+            BinaryWriter writer = new BinaryWriter(s);
+
+            Stream ins = File.OpenRead(@"D:\MFF\ZS_2019\c#_repos\Huffman1\Huffman1Tests\bin\Debug\netcoreapp3.0\TestFiles\Huff2\Ins\simple4.in");
+            BinaryReader reader = new BinaryReader(ins);
+
+            HuffCompresor.CompressFile(writer, reader);
+
+            s.Close();
+            ins.Close();
+            bool same = Utils.FileDiff(@"D:\MFF\ZS_2019\c#_repos\Huffman1\Huffman1Tests\bin\Debug\netcoreapp3.0\TestFiles\Huff2\Outs\simple4.in.huff", @"D:\MFF\ZS_2019\c#_repos\Huffman1\Huffman1Tests\bin\Debug\netcoreapp3.0\TestFiles\Huff2\Outs\simple4Comp.out");
+            Assert.IsTrue(same);
+        }
         
        
     }

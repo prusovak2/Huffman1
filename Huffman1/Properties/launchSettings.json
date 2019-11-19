@@ -2,7 +2,7 @@
   "profiles": {
     "Huffman1": {
       "commandName": "Project",
-      "commandLineArgs": "D:\\MFF\\ZS_2019\\c#_repos\\HuffTests\\simple4.in"
+      "commandLineArgs": "D:\\MFF\\ZS_2019\\c#_repos\\Huffman1\\Huffman1Tests\\bin\\Debug\\netcoreapp3.0\\TestFiles\\Huff2\\Ins\\simple4.in"
     }
   }
 }

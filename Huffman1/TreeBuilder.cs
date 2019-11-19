@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace Huffman1
 {
@@ -66,5 +67,7 @@ namespace Huffman1
             }
             return Root;
         }
+
+
     }
 }

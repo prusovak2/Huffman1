@@ -90,18 +90,35 @@ namespace Huffman1
             //then recursively print its right subtree
             PrintCompresedTree(node.Right, false, Writer);
         }
+        /// <summary>
+        /// recursive
+        /// writes binary representation of Huffman tree as if was specified by Huffman II assigment to given binary writer
+        /// </summary>
+        /// <param name="root">root of tree to be printed</param>
+        /// <param name="writer"></param>
         public static void PrintTreeBinary(Node root, BinaryWriter writer)
         {
+            //print actuall root, implementation of NodeToBinary differs for leaf and inner node
             ulong record =root.NodeToBinary();
             writer.Write(record);
             if(root is InnerNode)
-            {
+            { 
+                //recursively print subtrees
                 InnerNode node = (InnerNode)root;
                 PrintTreeBinary(node.Left, writer);
                 PrintTreeBinary(node.Right, writer);
             }
         }
 
+        /// <summary>
+        /// prints Huffman tree in prefix notation on one line
+        /// inner nodes in format WEIGHT LEFT subtree RIGHT subtree
+        /// leaves are in format *SYMBOL:WEIGHT
+        /// </summary>
+        /// <param name="Root"></param>
+        /// <param name="writer"></param>
+        /// 
+        //encapsulation of private recursive method, provides constant parametr (important for recursive calls) and flushes 
         public static void PrintCompresedTree(Node Root, StreamWriter writer)
         {
             PrintCompresedTree(Root, true, writer);

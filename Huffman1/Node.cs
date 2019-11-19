@@ -29,22 +29,34 @@ namespace Huffman1
             this.Weight = Weight;
         }
 
+        /// <summary>
+        /// Codes Leaf to binary as required by Huffman II assigment
+        /// </summary>
+        /// <returns>ulong containtg bin representation of leaf</returns>
         public override ulong NodeToBinary()
         {
             ulong weight = this.Weight;
             weight <<= 9; //pick lower 55 bits of weight - 9 zeroes to end
-            weight >>= 8; //one zero to begining
+            weight >>= 8; //one zero to begining, eight zeroes to end
 
-            ulong symbol = this.Symbol;
+            ulong symbol = this.Symbol; //56 zeroes and 8 bits of symbol
             symbol <<= 56;
 
+            //first bit 1 represents leaf
             ulong initialOne = 1;
 
+            //or eberzthing together
             ulong binRepresentation = weight | symbol | initialOne;
 
             return binRepresentation;
         }
-        public ulong NodeToBinaryMock(BinaryWriter writer)
+
+        /// <summary>
+        /// Handy for testing, converts Leaf to binary and current state after each step of convertion
+        /// </summary>
+        /// <param name="writer"></param>
+        /// <returns></returns>
+        internal ulong NodeToBinaryMock(BinaryWriter writer)
         {
             ulong weight = this.Weight;
             writer.Write(weight);
@@ -99,12 +111,18 @@ namespace Huffman1
             ulong weight = (left.Weight + right.Weight);
             this.Weight = weight;
         }
+        /// <summary>
+        /// Codes InnerNode to binary as required by Huffman II assigment
+        /// </summary>
+        /// <returns>ulong containtg bin representation of InnerNode</returns>
         public override ulong NodeToBinary()
         {
-            //TODO: Am I sure its correct?
+            //first bit zero - idicates InnerNode
+            //56 bits of weight
+            //8 trailing bits zero
             ulong weight = this.Weight;
             weight <<= 9; //pick lower 55 bits of weight - 9 zeroes to end
-            weight >>= 8; //one zero to begining
+            weight >>= 8; //one zero to begining, 8 zeroes to end  
             //writer.Write(weight);
             return weight;
         }
