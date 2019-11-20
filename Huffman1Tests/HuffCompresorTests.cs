@@ -9,7 +9,7 @@ namespace Huffman1Tests
     public class HuffCompresorTests
     {
         [TestMethod]
-        public void Test()
+        public void Test()  //just to observe how are various stuff behaving, practically useless after coding finished 
         {
             //ulong u = 0xbb;
             Stream s = File.OpenWrite(@"D:\MFF\ZS_2019\c#_repos\Huffman1\Huffman1Tests\bin\Debug\netcoreapp3.0\TestFiles\Huff2\Outs\TestFile.out");
@@ -103,7 +103,7 @@ namespace Huffman1Tests
 
         }
         [TestMethod]
-        public void CodeBytesTest()
+        public void CodeBytesTest() //no assert!
         {
             Stream ins = File.OpenRead(@"D:\MFF\ZS_2019\c#_repos\Huffman1\Huffman1Tests\bin\Debug\netcoreapp3.0\TestFiles\Huff2\Ins\simple4.in");
             BinaryReader reader = new BinaryReader(ins);
@@ -150,8 +150,13 @@ namespace Huffman1Tests
             Node Root = Builder.BuildHuffTree();
 
             ins.Seek(0, 0);
-
+            
             HuffCompresor.CompressContent(Root, writer, reader);
+
+            writer.Close();
+            reader.Close();
+            bool same = Utils.FileDiff(@"D:\MFF\ZS_2019\c#_repos\Huffman1\Huffman1Tests\bin\Debug\netcoreapp3.0\TestFiles\Huff2\Outs\Compressed.huff", @"D:\MFF\ZS_2019\c#_repos\Huffman1\Huffman1Tests\bin\Debug\netcoreapp3.0\TestFiles\Huff2\Outs\Compressed.out");
+            Assert.IsTrue(same);
 
         }
 

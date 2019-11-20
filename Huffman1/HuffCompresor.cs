@@ -6,11 +6,11 @@ using System.IO;
 namespace Huffman1
 {
     /// <summary>
-    /// Majority of solution of HUffman II, creates compressed file 
+    /// Majority of solution of HUffman II, creates content of compressed file 
     /// </summary>
     public static class HuffCompresor
     {
-        //array of 256 arrays, each containing path from particular leaf of Huffman tree to root
+        //array of 256 arrays, each containing path from particular leaf of Huffman tree to the root
         public static byte[][] Codes = new byte[256][];
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Huffman1
                 buffer = reader.ReadBytes(size);
                 foreach (var item in buffer) //for each byte from file
                 {
-                    //for all bit in code of particular byte (item)
+                    //for each bit in code of particular byte (item)
                     for (int i = HuffCompresor.Codes[item].Length-1; i >= 0; i--)
                     {
                         //ulong used as buffer is full, lets print it
@@ -128,16 +128,19 @@ namespace Huffman1
             //there are some unprinted bits left in buffer after reading of file was finished
             if (bitCounter != 0)
             {
-                //shift valid bits so that the firts one of them is on least significant position
+                //shift valid bits so that the first one of them is on least significant position
                 int shift = 64 - bitCounter;
                 record >>= shift;
 
+                //count how many bytes from ulong record contains valid bits
+                //result is supposed to be allign to bytes
                 int validBytes = bitCounter / 8;
                 if ((bitCounter % 8) > 0)
                 {
                     validBytes++;
                 }
 
+                //print valid bytes
                 byte[] lastBytes = BitConverter.GetBytes(record);
                 for (int i = 0; i < validBytes; i++)
                 {
@@ -171,7 +174,7 @@ namespace Huffman1
             path.Push(0);
             CodeBytes(node.Left, path);
 
-            //going to right subtree(1)
+            //going to right subtree (1)
             path.Push(1);
             CodeBytes(node.Right, path);
 
