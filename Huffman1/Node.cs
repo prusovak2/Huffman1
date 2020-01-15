@@ -13,6 +13,7 @@ namespace Huffman1
         public abstract ulong Weight { get; set; }
         //public abstract int TimeOfCreation { get; set; }
         public abstract ulong NodeToBinary();
+        
                   
     }
     /// <summary>
@@ -27,6 +28,10 @@ namespace Huffman1
         {
             this.Symbol = Symbol;
             this.Weight = Weight;
+        }
+        public override string ToString()
+        {
+            return $"leaf, w:{this.Weight} s:{this.Symbol}";
         }
 
         /// <summary>
@@ -89,13 +94,24 @@ namespace Huffman1
     {
         public override ulong Weight { get; set; }
         internal int TimeOfCreation { get; set; }
-       internal Node Left { get; set; }
+        internal Node Left { get; set; }
         internal Node Right { get; set; }
 
         public InnerNode(ulong weight, int timeOfCreation)
         {
             this.Weight = weight;
             this.TimeOfCreation = timeOfCreation;
+        }
+        public InnerNode(ulong weight)
+        {
+            this.Weight = weight;
+            this.Left = null;
+            this.Right = null;
+        }
+
+        public override string ToString()
+        {
+            return $"inner, w:{this.Weight}";
         }
         /// <summary>
         /// To conect two Huffman subtrees to one Huffmen tree with a new created root
